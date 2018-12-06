@@ -10,14 +10,23 @@ buildscript {
 	}
 }
 
+plugins {
+	id 'io.franzbecker.gradle-lombok' version '1.14'
+}
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 group = 'open.mind'
-version = '0.0.1-SNAPSHOT'
+version = '0.1.0'
 sourceCompatibility = 1.8
+
+lombok {
+	version = "1.18.4"
+	sha256 = ""
+}
 
 repositories {
 	mavenCentral()
@@ -25,7 +34,17 @@ repositories {
 
 
 dependencies {
+
+	implementation('org.springframework.boot:spring-boot-starter-thymeleaf')
 	implementation('org.springframework.boot:spring-boot-starter-web')
 	implementation('org.springframework.boot:spring-boot-starter-websocket')
+	implementation("org.springframework.boot:spring-boot-devtools")
+
+	implementation("org.webjars:webjars-locator-core")
+	implementation("org.webjars:sockjs-client:1.1.2")
+	implementation("org.webjars:stomp-websocket:2.3.3-1")
+	implementation("org.webjars:bootstrap:4.1.3")
+	implementation("org.webjars:jquery:3.3.1-1")
+
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
