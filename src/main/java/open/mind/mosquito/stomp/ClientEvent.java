@@ -16,8 +16,10 @@ import lombok.ToString;
 @ToString
 public class ClientEvent
 {
-    private String hostId;
+
+    private String type;
 
     private String mouseX;
     private String mouseY;
+
 }

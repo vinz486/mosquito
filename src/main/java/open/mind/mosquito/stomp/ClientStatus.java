@@ -2,8 +2,6 @@ package open.mind.mosquito.stomp;
 
 import lombok.*;
 
-import java.util.HashMap;
-
 
 @Builder
 @NoArgsConstructor
@@ -11,7 +9,10 @@ import java.util.HashMap;
 @Getter
 @Setter
 @ToString
-public class HostStatus
+public class ClientStatus
 {
-    private HashMap<String, ClientStatus> clients;
+    private String type;
+
+    private String mouseX;
+    private String mouseY;
 }
