@@ -85,7 +85,7 @@ function renderStatus(hostStatus) {
 
     if ($($div).length) {
 
-      $($div).animate({top: position.mouseY, left: position.mouseX}, 10);
+      $($div).animate({top: position.mouseY, left: position.mouseX}, 50);
 
     } else {
 

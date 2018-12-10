@@ -3,7 +3,8 @@ package open.mind.mosquito.service;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-public abstract class AbstractBeanContainer<KEY, BEAN> {
+public abstract class AbstractBeanContainer<KEY, BEAN> extends AbstractService
+{
 
     private ConcurrentHashMap<KEY, BEAN> beanMap = new ConcurrentHashMap<>();
 

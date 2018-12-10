@@ -3,7 +3,6 @@ package open.mind.mosquito.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.stereotype.Controller;
@@ -29,11 +28,10 @@ public class HomeController extends AbstractController
     }
 
     @MessageMapping("/event/{host}")
-    @SendTo("/client/{host}")
-    public HostStatus event(@DestinationVariable("host") String host, SimpMessageHeaderAccessor headerAccessor, ClientEvent event)
+    public void event(@DestinationVariable("host") String host, SimpMessageHeaderAccessor headerAccessor, ClientEvent event)
     {
         LOG.info("Received event " + event);
-        return mosquitoManager.receive(host, headerAccessor.getSessionId(), event);
+        mosquitoManager.receive(host, headerAccessor.getSessionId(), event);
     }
 
     @SubscribeMapping("/client/{host}")

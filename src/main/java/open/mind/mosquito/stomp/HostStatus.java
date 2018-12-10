@@ -1,8 +1,13 @@
 package open.mind.mosquito.stomp;
 
-import lombok.*;
+import java.util.Map;
 
-import java.util.HashMap;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 
 @Builder
@@ -13,5 +18,5 @@ import java.util.HashMap;
 @ToString
 public class HostStatus
 {
-    private HashMap<String, ClientStatus> clients;
+    private Map<String, ClientStatus> clients;
 }

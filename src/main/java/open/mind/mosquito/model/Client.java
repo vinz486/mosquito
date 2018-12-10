@@ -1,6 +1,6 @@
 package open.mind.mosquito.model;
 
-import java.util.Date;
+import static java.lang.System.currentTimeMillis;
 
 import lombok.Builder;
 import lombok.Data;
@@ -15,15 +15,17 @@ public class Client
 
     private String id;
 
-    private Date lastEvent = new Date();
+    @Builder.Default
+    private long lastEvent = currentTimeMillis();
 
-    private ClientStatus clientStatus;
+    @Builder.Default
+    private ClientStatus clientStatus = new ClientStatus();
 
     public void lastEvent(ClientEvent event)
     {
         clientStatus.setMouseX(event.getMouseX());
         clientStatus.setMouseY(event.getMouseY());
 
-        lastEvent = new Date();
+        lastEvent = currentTimeMillis();
     }
 }
