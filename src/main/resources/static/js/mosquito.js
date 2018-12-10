@@ -1,37 +1,28 @@
 var stompClient = null;
 var host = window.location.hostname;
 
-function getSockJS() {
+ var getSockJS = function () {
 
   return new SockJS("/websocket");
-}
-
-/*
-var stompConfig: StompConfig = {
-  // Which server?
-  url: getSockJS,
-
-  // Headers
-  // Typical keys: login, passcode, host
-  headers: {
-    login: 'guest',
-    passcode: 'guest'
-  },
-
-  // How frequent is the heartbeat?
-  // Interval in milliseconds, set to 0 to disable
-  heartbeat_in: 0, // Typical value 0 - disabled
-  heartbeat_out: 20000, // Typical value 20000 - every 20 seconds
-
-  // Wait in milliseconds before attempting auto reconnect
-  // Set to 0 to disable
-  // Typical value 5000 (5 seconds)
-  reconnect_delay: 5000,
-
-  // Will log diagnostics on console
-  debug: true
 };
-*/
+
+const client = new StompJs.Client({
+
+  webSocketFactory: getSockJS,
+  connectHeaders: {
+    login: "",
+    passcode: ""
+  },
+  debug: function (str) {
+    console.log(str);
+  },
+  reconnectDelay: 5000,
+  heartbeatIncoming: 4000,
+  heartbeatOutgoing: 4000
+});
+
+stompClient  = client;
+
 $(document).ready(function () {
 
   console.log("Document ready");
@@ -43,12 +34,20 @@ $(document).ready(function () {
 function initStompClient() {
 
   //stompClient = Stomp.over(function () {return new SockJS("/websocket")});
-  stompClient = Stomp.over(getSockJS());
+  //stompClient = Stomp.over(getSockJS);
 
   console.log("Connecting stomp");
 
-  stompClient.reconnect_delay = 3000;
-  stompClient.connect({}, stompConnect);
+  //stompClient.reconnect_delay = 3000;
+  //stompClient.connect({}, stompConnect);
+
+  stompClient.onConnect = function(frame){
+
+    fconnected(frame);
+
+  };
+
+  stompClient.activate();
 }
 
 function initMouseTrap() {
@@ -62,11 +61,13 @@ function mouseTrap(event) {
   sendClientEvent(event.pageX, event.pageY);
 }
 
-function stompConnect(frame) {
+var fconnected = function(frame) {
 
-  console.log('Connected: ' + frame);
+  console.log('AAAA: ' + frame);
 
   stompClient.subscribe('/client/' + host, function (hostStatus) {
+
+    console.log("MSG: " + hostStatus);
 
     renderStatus(JSON.parse(hostStatus.body));
   });
@@ -74,7 +75,10 @@ function stompConnect(frame) {
 
 function sendClientEvent(x, y) {
 
-  stompClient.send("/mosquito/event/" + host, {}, JSON.stringify({'mouseX': x, 'mouseY': y}));
+  stompClient.publish({
+    destination: "/mosquito/event/" + host,
+    body: JSON.stringify({'mouseX': x, 'mouseY': y})
+  });
 }
 
 function renderStatus(hostStatus) {
