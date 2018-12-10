@@ -1,8 +1,5 @@
 package open.mind.mosquito.controller;
 
-import open.mind.mosquito.service.MosquitoManager;
-import open.mind.mosquito.stomp.ClientEvent;
-import open.mind.mosquito.stomp.HostStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -12,6 +9,10 @@ import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import open.mind.mosquito.service.MosquitoManager;
+import open.mind.mosquito.stomp.ClientEvent;
+import open.mind.mosquito.stomp.HostStatus;
 
 
 @Controller
