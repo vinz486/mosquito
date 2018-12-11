@@ -1,12 +1,13 @@
 var stompClient = null;
 var host = window.location.hostname;
 
+
  var getSockJS = function () {
 
   return new SockJS("/websocket");
 };
 
-const client = new StompJs.Client({
+var client = new StompJs.Client({
 
   webSocketFactory: getSockJS,
   connectHeaders: {
@@ -93,7 +94,7 @@ function renderStatus(hostStatus) {
 
     } else {
 
-      $("div#clients").append("<div id=\"c-" + client + "\">X<div>");
+      $("div#clients").append("<div id=\"c-" + client + "\"><img src='/img/mouse.png'><div>");
     }
   });
 }

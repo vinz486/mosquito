@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import open.mind.mosquito.model.Client;
 import open.mind.mosquito.stomp.ClientEvent;
+import open.mind.mosquito.stomp.HostStatus;
 
 
 @Component
@@ -23,11 +24,16 @@ public class MosquitoHost extends AbstractService
 
     private ConcurrentHashMap<String, Client> clientStatus = new ConcurrentHashMap<>();
 
-    private final String host;
+    private final String hostId;
 
     public MosquitoHost(String host)
     {
-        this.host = host;
+        hostId = host;
+    }
+
+    public HostStatus init(String client)
+    {
+        return statusBroadcaster.getStatusFor(client, clientStatus);
     }
 
     public void event(String clientId, ClientEvent event)
@@ -44,8 +50,9 @@ public class MosquitoHost extends AbstractService
     }
 
     @Scheduled(fixedDelay = 100)
-    public void boradcastHostStatus()
+    public void broadcastHostStatus()
     {
-        statusBroadcaster.cast(host, clientStatus);
+        statusBroadcaster.cast(hostId, clientStatus);
     }
+
 }

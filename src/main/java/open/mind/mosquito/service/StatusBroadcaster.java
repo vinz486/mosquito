@@ -3,13 +3,13 @@ package open.mind.mosquito.service;
 import static java.lang.System.currentTimeMillis;
 import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROTOTYPE;
 
-import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -55,6 +55,14 @@ public class StatusBroadcaster extends AbstractService
     {
 
         return clientStatus.entrySet().stream().filter(entry -> entry.getValue().getLastEvent() > lastBroadcast)
-                .collect(Collectors.toMap(Map.Entry::getKey, client -> client.getValue().getClientStatus()));
+                .collect(Collectors.toMap(Map.Entry::getKey, clientEntry -> clientEntry.getValue().getClientStatus()));
+    }
+
+    public HostStatus getStatusFor(String client, ConcurrentHashMap<String, Client> clientStatus)
+    {
+        return HostStatus.builder().clients(
+                clientStatus.entrySet().stream().filter(entry -> !StringUtils.equals(entry.getValue().getId(), client))
+                        .collect(Collectors.toMap(Map.Entry::getKey, clientEntry -> clientEntry.getValue().getClientStatus())))
+                .build();
     }
 }
