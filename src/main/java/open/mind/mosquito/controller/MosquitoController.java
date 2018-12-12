@@ -14,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import open.mind.mosquito.autoconfiguration.MosquitoConfiguration;
 import open.mind.mosquito.service.MosquitoHostManager;
 import open.mind.mosquito.stomp.ClientEvent;
 import open.mind.mosquito.stomp.HostStatus;
@@ -36,18 +35,16 @@ public class MosquitoController extends AbstractController
     @MessageMapping(DESTINATION_ADDRESS + "/{host}")
     public void event(@DestinationVariable("host") String host, @Header(HEADER_SESSIONID) String sessionId, ClientEvent event)
     {
-        LOG.info("Received event " + event);
+        LOG.debug("Received event " + event);
         mosquitoHostManager.receive(host, sessionId, event);
     }
 
     @SubscribeMapping("{host}")
     public HostStatus init(@DestinationVariable("host") String host, StompHeaderAccessor headerAccessor)
     {
-
         String sessionId = headerAccessor.getSessionId();
 
-        LOG.info("Subscription from " + host + " id: " + sessionId);
-
+        LOG.debug("Subscription from " + host + " id: " + sessionId);
         headerAccessor.getSessionAttributes().put(HEADER_HOST, host);
 
         return mosquitoHostManager.init(host, sessionId);
