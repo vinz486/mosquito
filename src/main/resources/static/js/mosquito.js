@@ -94,7 +94,7 @@ function renderStatus(hostStatus) {
 
     } else {
 
-      $("div#clients").append("<div id=\"c-" + client + "\"><img src='/img/cursor.mac.svg' width='20' height='20'><div>");
+      $("div#clients").append("<div id=\"c-" + client + "\"><img src='/img/cursor.png' width='12'><div>");
     }
   });
 }
