@@ -10,28 +10,33 @@ import open.mind.mosquito.stomp.HostStatus;
 @Component
 public class MosquitoHostManager extends AbstractBeanContainer<String, MosquitoHost>
 {
-
-    public void receive(String host, String client, ClientEvent event)
+    public HostStatus init(String hostId, String clientId)
     {
+        MosquitoHost mosquitoHost = get(hostId);
 
-        MosquitoHost mosquitoHost = get(host);
-
-        mosquitoHost.event(client, event);
+        return mosquitoHost.init(clientId);
     }
 
-    public HostStatus init(String host, String client)
+    public void receive(String hostId, String clientId, ClientEvent event)
     {
+        MosquitoHost mosquitoHost = get(hostId);
 
-        MosquitoHost mosquitoHost = get(host);
+        mosquitoHost.event(clientId, event);
+    }
 
-        return mosquitoHost.init(client);
+
+    public void disconnect(String hostId, String clientId)
+    {
+        MosquitoHost mosquitoHost = get(hostId);
+
+        mosquitoHost.remove(clientId);
     }
 
     @Override
-    protected MosquitoHost create(String host)
+    protected MosquitoHost create(String hostId)
     {
 
-        return getBean(host);
+        return getBean(hostId);
     }
 
     @Lookup
@@ -40,8 +45,4 @@ public class MosquitoHostManager extends AbstractBeanContainer<String, MosquitoH
         return null;
     }
 
-    public void disconnect(String host, String client)
-    {
-        //TODO
-    }
 }

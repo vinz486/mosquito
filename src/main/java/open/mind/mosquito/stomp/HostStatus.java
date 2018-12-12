@@ -18,5 +18,7 @@ import lombok.ToString;
 @ToString
 public class HostStatus
 {
+    private String selfId;
+
     private Map<String, ClientStatus> clients;
 }

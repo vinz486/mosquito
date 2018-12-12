@@ -33,18 +33,19 @@ public class WebSocketEventListener extends AbstractService
             return;
         }
 
-        String host = (String) attributes.get(HEADER_HOST);
+        String hostId = (String) attributes.get(HEADER_HOST);
 
-        if (isEmpty(host))
+        if (isEmpty(hostId))
         {
             return;
         }
 
-        String client = (String) headerAccessor.getMessageHeaders().get(HEADER_SESSIONID);
+        String clientId = (String) headerAccessor.getMessageHeaders().get(HEADER_SESSIONID);
 
-        if (isNotEmpty(client))
+        if (isNotEmpty(clientId))
         {
-            mosquitoHostManager.disconnect(host, client);
+            LOG.info("Disconnect client " + clientId + " from host " + hostId);
+            mosquitoHostManager.disconnect(hostId, clientId);
         }
     }
 }

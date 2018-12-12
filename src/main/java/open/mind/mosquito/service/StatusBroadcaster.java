@@ -4,18 +4,16 @@ import static java.lang.System.currentTimeMillis;
 import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROTOTYPE;
 
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 
-import open.mind.mosquito.model.Client;
+import open.mind.mosquito.model.Host;
 import open.mind.mosquito.stomp.ClientStatus;
 import open.mind.mosquito.stomp.HostStatus;
 
@@ -24,6 +22,9 @@ import open.mind.mosquito.stomp.HostStatus;
 @Scope(SCOPE_PROTOTYPE)
 public class StatusBroadcaster extends AbstractService
 {
+
+    @Value("${mosquito.register.prefix}")
+    private String registerPrefix;
 
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
@@ -38,31 +39,15 @@ public class StatusBroadcaster extends AbstractService
         hostStatus = HostStatus.builder().build();
     }
 
-    public void cast(String hostId, ConcurrentHashMap<String, Client> clientStatus)
+    public void cast(Host hostData)
     {
-
-        Map<String, ClientStatus> rendered = render(clientStatus);
+        Map<String, ClientStatus> rendered = hostData.render(lastBroadcast);
 
         if (rendered.size() > 0)
         {
             hostStatus.setClients(rendered);
-            simpMessagingTemplate.convertAndSend("/client/" + hostId, hostStatus);
+            simpMessagingTemplate.convertAndSend(registerPrefix + "/" + hostData.getId(), hostStatus);
             lastBroadcast = currentTimeMillis();
         }
-    }
-
-    private Map<String, ClientStatus> render(ConcurrentHashMap<String, Client> clientStatus)
-    {
-
-        return clientStatus.entrySet().stream().filter(entry -> entry.getValue().getLastEvent() > lastBroadcast)
-                .collect(Collectors.toMap(Map.Entry::getKey, clientEntry -> clientEntry.getValue().getClientStatus()));
-    }
-
-    public HostStatus getStatusFor(String client, ConcurrentHashMap<String, Client> clientStatus)
-    {
-        return HostStatus.builder().clients(
-                clientStatus.entrySet().stream().filter(entry -> !StringUtils.equals(entry.getValue().getId(), client))
-                        .collect(Collectors.toMap(Map.Entry::getKey, clientEntry -> clientEntry.getValue().getClientStatus())))
-                .build();
     }
 }
