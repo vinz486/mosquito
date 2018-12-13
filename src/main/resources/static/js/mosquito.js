@@ -2,7 +2,7 @@ var stompClient = null;
 var host = window.location.hostname;
 
 
- var getSockJS = function () {
+var getSockJS = function () {
 
   return new SockJS("/websocket");
 };
@@ -22,7 +22,7 @@ var client = new StompJs.Client({
   heartbeatOutgoing: 4000
 });
 
-stompClient  = client;
+stompClient = client;
 
 $(document).ready(function () {
 
@@ -34,15 +34,7 @@ $(document).ready(function () {
 
 function initStompClient() {
 
-  //stompClient = Stomp.over(function () {return new SockJS("/websocket")});
-  //stompClient = Stomp.over(getSockJS);
-
-  console.log("Connecting stomp");
-
-  //stompClient.reconnect_delay = 3000;
-  //stompClient.connect({}, stompConnect);
-
-  stompClient.onConnect = function(frame){
+  stompClient.onConnect = function (frame) {
 
     fconnected(frame);
 
@@ -62,9 +54,7 @@ function mouseTrap(event) {
   sendClientEvent(event.pageX, event.pageY);
 }
 
-var fconnected = function(frame) {
-
-  console.log('AAAA: ' + frame);
+var fconnected = function (frame) {
 
   stompClient.subscribe('/client/' + host, function (hostStatus) {
 
@@ -78,23 +68,13 @@ function sendClientEvent(x, y) {
 
   stompClient.publish({
     destination: "/mosquito/event/" + host,
-    body: JSON.stringify({'mouseX': x, 'mouseY': y})
+    body: JSON.stringify({'action': 'move', 'x': x, 'y': y})
   });
 }
 
 function renderStatus(hostStatus) {
 
-  $.each(hostStatus.clients, function (client, position) {
-
-    var $div = "div#c-" + client;
-
-    if ($($div).length) {
-
-      $($div).animate({top: position.mouseY, left: position.mouseX}, 50);
-
-    } else {
-
-      $("div#clients").append("<div id=\"c-" + client + "\"><img src='/img/cursor.png' width='12'><div>");
-    }
+  $.each(hostStatus.clients, function (clientId, event) {
+    clientEvent(clientId, event);
   });
 }

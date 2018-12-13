@@ -16,9 +16,20 @@ import lombok.ToString;
 @ToString
 public class ClientStatus
 {
-    private String type;
+    private String event;
 
-    private String mouseX;
+    private Position position;
 
-    private String mouseY;
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Getter
+    @Setter
+    @ToString
+    public static class Position
+    {
+        private String x;
+
+        private String y;
+    }
 }

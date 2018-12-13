@@ -21,6 +21,9 @@ public class MosquitoHost extends AbstractService
     @Autowired
     private StatusBroadcaster statusBroadcaster;
 
+    @Autowired
+    private ClientManager clientManager;
+
     private Host hostData;
 
     public MosquitoHost(String hostId)
@@ -37,12 +40,12 @@ public class MosquitoHost extends AbstractService
     {
         Client client = hostData.getClient(clientId);
 
-        updateClient(client, event);
+        clientEvent(client, event);
     }
 
-    private void updateClient(Client client, ClientEvent event)
+    private void clientEvent(Client client, ClientEvent event)
     {
-        client.lastEvent(event);
+        clientManager.event(client, event);
     }
 
     public void remove(String clientId)

@@ -18,7 +18,7 @@ public class ClientEvent
 {
     private String action;
 
-    private String mouseX;
+    private String x;
 
-    private String mouseY;
+    private String y;
 }

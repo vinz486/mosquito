@@ -21,11 +21,15 @@ public class Client
     @Builder.Default
     private ClientStatus clientStatus = new ClientStatus();
 
-    public void lastEvent(ClientEvent event)
+    public static class Position
     {
-        clientStatus.setMouseX(event.getMouseX());
-        clientStatus.setMouseY(event.getMouseY());
+        private String x;
 
+        private String y;
+    }
+
+    public void ping()
+    {
         lastEvent = currentTimeMillis();
     }
 }
