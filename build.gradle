@@ -37,7 +37,7 @@ node {
 	download = true
 	workDir = file("${project.buildDir}/node")
 	npmWorkDir = file("${project.buildDir}/npm")
-	nodeModulesDir = file("${project.projectDir}/modules")
+	nodeModulesDir = file("${project.projectDir}/src/main/resources/static")
 }
 
 build.dependsOn(npmInstall)
