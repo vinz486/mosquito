@@ -6,12 +6,14 @@ buildscript {
 		mavenCentral()
 	}
 	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+		//classpath "com.moowork.gradle:gradle-node-plugin:1.2.0"
 	}
 }
 
 plugins {
 	id "io.franzbecker.gradle-lombok" version "1.14"
+	id "com.moowork.node" version "1.2.0"
 }
 
 apply plugin: "application"
@@ -22,11 +24,24 @@ apply plugin: "io.spring.dependency-management"
 group = "open.mind"
 version = "0.1.0"
 sourceCompatibility = 1.8
+mainClassName = "open.mind.mosquito.MosquitoApplication"
 
 lombok {
 	version = "1.18.4"
 	sha256 = ""
 }
+
+node {
+	version = '10.14.2'
+	npmVersion = '3.10.6'
+	download = true
+	workDir = file("${project.buildDir}/node")
+	npmWorkDir = file("${project.buildDir}/npm")
+	nodeModulesDir = file("${project.projectDir}/modules")
+}
+
+build.dependsOn(npmInstall)
+bootRun.dependsOn(npmInstall)
 
 repositories {
 	mavenCentral()
