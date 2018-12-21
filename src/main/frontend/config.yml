@@ -1,3 +1,4 @@
+PORT: 8066
 # Autoprefixer will make sure your CSS works with these browsers
 COMPATIBILITY:
   - "last 2 versions"
@@ -7,7 +8,7 @@ COMPATIBILITY:
 # Gulp will reference these paths when it copies files
 PATHS:
   # Path to dist folder
-  dist: "dist"
+  dist: "../resources/static"
   # Paths to static assets that aren't images, CSS, or JavaScript
   assets:
     - "src/fonts/**/*"
@@ -15,4 +16,4 @@ PATHS:
   sass:
   # Paths to JavaScript entry points for webpack to bundle modules
   entries:
-    - "src/js/main.js"
+    - "js/main.js"

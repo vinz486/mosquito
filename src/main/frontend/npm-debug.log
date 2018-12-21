@@ -1,0 +1,46 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/Users/francescocolonna/Desktop/dev/mosquito/build/src/main/frontend/node-v10.14.2-darwin-x64/bin/node',
+1 verbose cli   '/Users/francescocolonna/Desktop/dev/mosquito/build/src/main/frontend/npm-v3.10.6/bin/npm',
+1 verbose cli   'run',
+1 verbose cli   'dev' ]
+2 info using npm@3.10.6
+3 info using node@v10.14.2
+4 verbose run-script [ 'predev', 'dev', 'postdev' ]
+5 info lifecycle mosquito@1.0.0~predev: mosquito@1.0.0
+6 silly lifecycle mosquito@1.0.0~predev: no script for predev, continuing
+7 info lifecycle mosquito@1.0.0~dev: mosquito@1.0.0
+8 verbose lifecycle mosquito@1.0.0~dev: unsafe-perm in lifecycle true
+9 verbose lifecycle mosquito@1.0.0~dev: PATH: /Users/francescocolonna/Desktop/dev/mosquito/build/src/main/frontend/npm-v3.10.6/lib/node_modules/npm/bin/node-gyp-bin:/Users/francescocolonna/Desktop/dev/mosquito/src/main/frontend/node_modules/.bin:/Users/francescocolonna/Desktop/dev/mosquito/build/src/main/frontend/npm-v3.10.6/bin:/Users/francescocolonna/Desktop/dev/mosquito/build/src/main/frontend/node-v10.14.2-darwin-x64/bin:/Users/francescocolonna/.nvm/versions/node/v6.9.4/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+10 verbose lifecycle mosquito@1.0.0~dev: CWD: /Users/francescocolonna/Desktop/dev/mosquito/src/main/frontend
+11 silly lifecycle mosquito@1.0.0~dev: Args: [ '-c', 'gulp' ]
+12 silly lifecycle mosquito@1.0.0~dev: Returned: code: 1  signal: null
+13 info lifecycle mosquito@1.0.0~dev: Failed to exec dev script
+14 verbose stack Error: mosquito@1.0.0 dev: `gulp`
+14 verbose stack Exit status 1
+14 verbose stack     at EventEmitter.<anonymous> (/Users/francescocolonna/Desktop/dev/mosquito/build/src/main/frontend/npm-v3.10.6/lib/node_modules/npm/lib/utils/lifecycle.js:255:16)
+14 verbose stack     at EventEmitter.emit (events.js:182:13)
+14 verbose stack     at ChildProcess.<anonymous> (/Users/francescocolonna/Desktop/dev/mosquito/build/src/main/frontend/npm-v3.10.6/lib/node_modules/npm/lib/utils/spawn.js:40:14)
+14 verbose stack     at ChildProcess.emit (events.js:182:13)
+14 verbose stack     at maybeClose (internal/child_process.js:962:16)
+14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:251:5)
+15 verbose pkgid mosquito@1.0.0
+16 verbose cwd /Users/francescocolonna/Desktop/dev/mosquito/src/main/frontend
+17 error Darwin 18.2.0
+18 error argv "/Users/francescocolonna/Desktop/dev/mosquito/build/src/main/frontend/node-v10.14.2-darwin-x64/bin/node" "/Users/francescocolonna/Desktop/dev/mosquito/build/src/main/frontend/npm-v3.10.6/bin/npm" "run" "dev"
+19 error node v10.14.2
+20 error npm  v3.10.6
+21 error code ELIFECYCLE
+22 error mosquito@1.0.0 dev: `gulp`
+22 error Exit status 1
+23 error Failed at the mosquito@1.0.0 dev script 'gulp'.
+23 error Make sure you have the latest version of node.js and npm installed.
+23 error If you do, this is most likely a problem with the mosquito package,
+23 error not with npm itself.
+23 error Tell the author that this fails on your system:
+23 error     gulp
+23 error You can get information on how to open an issue for this project with:
+23 error     npm bugs mosquito
+23 error Or if that isn't available, you can get their info via:
+23 error     npm owner ls mosquito
+23 error There is likely additional logging output above.
+24 verbose exit [ 1, true ]

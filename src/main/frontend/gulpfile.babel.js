@@ -48,14 +48,14 @@ function clean(done) {
 // In production, the CSS is compressed
 function sass() {
 	const processors = [];
-	return gulp.src('src/stylesheets/main.scss')
+	return gulp.src('scss/main.scss')
 			   .pipe($.sourcemaps.init())
 			   .pipe($.sass({includePaths: PATHS.sass}).on('error', $.sass.logError))
 			   .pipe($.autoprefixer({browsers: COMPATIBILITY}))
 			   .pipe($.if(PRODUCTION, $.cleanCss({compatibility: '*'})))
 			   .pipe(postcss(processors))
 			   .pipe($.if(!PRODUCTION, $.sourcemaps.write('.')))
-			   .pipe(gulp.dest(PATHS.dist + '/stylesheets'))
+			   .pipe(gulp.dest(PATHS.dist + '/css'))
 			   .pipe(browser.reload({stream: true}))
 			   .pipe(notify({message: 'Css compilato correttamente', onLast: true}));
 }
@@ -76,7 +76,7 @@ function javascript() {
 }
 
 function images() {
-	return gulp.src('src/img/**/*')
+	return gulp.src('img/**/*')
 			   .pipe($.imagemin([
 				   $.imagemin.svgo({
 					   plugins: [
@@ -93,7 +93,7 @@ function images() {
 // Start a server with BrowserSync to preview the site in
 function server(done) {
 	browser.init({
-		server: PATHS.dist, port: PORT
+		port: PORT
 	});
 	done();
 }
@@ -106,7 +106,7 @@ function reload(done) {
 
 // Watch for changes to static assets, pages, Sass, and JavaScript
 function watch() {
-	gulp.watch('src/stylesheets/**/*.scss').on('change', sass);
-	gulp.watch('src/js/**/*.js').on('change', gulp.series(javascript, reload));
-	gulp.watch('src/img/**/*.(jpg|gif|svg|png)').on('change', gulp.series(images, reload));
+	gulp.watch('scss/**/*.scss').on('change', sass);
+	gulp.watch('js/**/*.js').on('change', gulp.series(javascript, reload));
+	gulp.watch('img/**/*.(jpg|gif|svg|png)').on('change', gulp.series(images, reload));
 }

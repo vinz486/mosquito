@@ -34,9 +34,13 @@ node {
 	version = '10.14.2'
 	npmVersion = '3.10.6'
 	download = true
-	workDir = file("${project.buildDir}/node")
-	npmWorkDir = file("${project.buildDir}/npm")
+	workDir = file("${project.buildDir}/src/main/frontend")
+	npmWorkDir = file("${project.buildDir}/src/main/frontend")
 	nodeModulesDir = file("${project.projectDir}/src/main/frontend")
+}
+
+task runDev(type: NpmTask) {
+	args = ['run','dev']
 }
 
 build.dependsOn(npmInstall)
