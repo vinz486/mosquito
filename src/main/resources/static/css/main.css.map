@@ -1,1 +1,1 @@
-{"version":3,"sources":["main.scss"],"names":[],"mappings":"AAEA;EACE,uBAAsB,EACvB;;AAGD;EACE,aAAY,EACb","file":"main.css","sourcesContent":["@import \"normalize\";\n\nbody{\n  background-color: pink;\n}\n\n\np{\n  color: white;\n}\n"]}
+{"version":3,"sources":["main.scss"],"names":[],"mappings":"AAEA;EACE,mBAAkB;EAClB,YAAW;EACX,aAAW;EACX,uBAAsB,EACvB","file":"main.css","sourcesContent":["@import \"normalize\";\n\n.cursor{\n  position: absolute;\n  width: 10px;\n  height:10px;\n  border: 1px solid blue;\n}\n"]}

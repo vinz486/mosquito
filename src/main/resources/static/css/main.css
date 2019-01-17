@@ -1,7 +1,7 @@
-body {
-  background-color: pink; }
-
-p {
-  color: white; }
+.cursor {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 1px solid blue; }
 
 /*# sourceMappingURL=main.css.map */

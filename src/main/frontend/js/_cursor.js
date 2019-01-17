@@ -1,10 +1,10 @@
-var clients = {};
+var clients          = {};
 var CURSOR_CONTAINER = 'div#clients';
-var CURSOR = '<img id="client-%ID%" alt="client" class="cursor" src="/img/cursor.svg">';
+var _cursor          = '<img id="client-%ID%" alt="client" class="cursor" src="/img/cursor.svg">';
 
 function addCursor(clientId)
 {
-  $(CURSOR_CONTAINER).append(CURSOR.replace("%ID%", clientId));
+  $(CURSOR_CONTAINER).append(_cursor.replace("%ID%", clientId));
 }
 
 function removeClient(clientId)
