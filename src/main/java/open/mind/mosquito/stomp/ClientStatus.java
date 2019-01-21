@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import open.mind.jspoet.api.JsPoem;
 
 
 @Builder
@@ -14,6 +15,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@JsPoem
 public class ClientStatus
 {
     private String event;

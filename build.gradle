@@ -25,6 +25,9 @@ version = "0.1.0"
 sourceCompatibility = 1.8
 mainClassName = "open.mind.mosquito.MosquitoApplication"
 
+def springProps = new Properties()
+file("${project.projectDir}/src/main/resources/application.properties").withInputStream { springProps.load(it) }
+
 lombok {
 	version = "1.18.4"
 	sha256 = ""
@@ -43,8 +46,8 @@ task runDev(type: NpmTask) {
 	args = ['run','dev']
 }
 
+npmInstall.dependsOn(processResources)
 build.dependsOn(npmInstall)
-bootRun.dependsOn(npmInstall)
 
 repositories {
 	mavenCentral()
@@ -52,6 +55,9 @@ repositories {
 
 dependencies {
 
+	// Module dependencies
+	implementation project(":jspoet")
+	
 	// Spring
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 	implementation("org.springframework.boot:spring-boot-starter-web")
